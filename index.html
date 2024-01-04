@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #66b2b2;
+        }
+
+        #container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 280px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        #rectangle {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            transform-origin: center center;
+        }
+
+        #rectangle .side {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: #000;
+            transform: rotateY(0deg);
+        }
+
+        #rectangle .front {
+            background-color: white;
+            font-size: 200px; /* Increase the font size to 200px */
+        }
+
+        #rectangle .back {
+            background-color: black;
+            color: white;
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+
+<div id="container" onclick="flipCard()">
+    <div id="rectangle">
+        <div class="side front">Bf Tag</div>
+        <div class="side back" id="questionContainer"></div>
+    </div>
+</div>
+
+<script src="questionHandler.js"></script>
+
+<script>
+    function flipCard() {
+        var rectangle = document.getElementById('rectangle');
+        rectangle.style.transform = rectangle.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+
+        if (rectangle.style.transform === 'rotateY(180deg)') {
+            showRandomQuestion();
+        } else {
+            clearQuestion();
+        }
+    }
+</script>
+
+</body>
+</html>
